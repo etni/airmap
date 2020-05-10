@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Interview
 {
@@ -12,17 +13,17 @@ namespace Interview
         /// </summary>
         /// <param name="start"></param>
         /// <param name="destination"></param>
-        public void AddRoute(string start, string destination)
+        public void AddRoute(string start, string end)
         {
             if (routes.ContainsKey(start))
             {
-                if (routes[start].Contains(destination))
+                if (routes[start].Contains(end))
                     Console.WriteLine("Route Already Configured");
                 else
-                    routes[start].Add(destination);
+                    routes[start].Add(end);
             }
             else
-                routes.Add(start, new List<string>() { destination });
+                routes.Add(start, new List<string>() { end });
         }
 
         /// <summary>
@@ -30,14 +31,14 @@ namespace Interview
         /// </summary>
         /// <param name="start"></param>
         /// <param name="destination"></param>
-        public void PrintRoutes(string start, string destination)
+        public void PrintRoutes(string start, string end)
         {
-            Console.WriteLine($"From {start} to {destination}");
-            var result = FindRoutes(start, destination);
-            if (result.Count == 0)
+            Console.WriteLine($"From {start} to {end}");
+            var routes = FindRoutes(start, end);
+            if (routes.Count == 0)
                 Console.WriteLine("No Routes found");
 
-            foreach (var route in result)
+            foreach (var route in routes.OrderBy(r => r.Count))
                 Console.WriteLine(string.Join(',', route));
         }
 
