@@ -5,7 +5,7 @@ namespace Interview
 {
     public class AirMap
     {
-        private readonly Dictionary<string,List<string>> routes = new Dictionary<string, List<string>>();
+        private readonly Dictionary<string, List<string>> routes = new Dictionary<string, List<string>>();
 
         /// <summary>
         /// add a direct connection between two Airports
@@ -37,7 +37,7 @@ namespace Interview
             if (result.Count == 0)
                 Console.WriteLine("No Routes found");
 
-            foreach(var route in result)
+            foreach (var route in result)
                 Console.WriteLine(string.Join(',', route));
         }
 
@@ -46,41 +46,42 @@ namespace Interview
         /// Find all the possible routes between two Airports
         /// </summary>
         /// <param name="start"></param>
-        /// <param name="destination"></param>
+        /// <param name="end"></param>
         /// <param name="visited">used internally by the function to keep track of where we have visited</param>
         /// <returns></returns>
-        private List<LinkedList<string>> FindRoutes(string start, string destination, HashSet<string> visited = null)
+        private List<LinkedList<string>> FindRoutes(string start, string end, HashSet<string> visited = null)
         {
-            var found = new List<LinkedList<string>>();
+            var foundRoutes = new List<LinkedList<string>>();
 
-            if (!routes.ContainsKey(start)) return found;
+            if (!routes.ContainsKey(start))
+                return foundRoutes;
 
-            foreach (var item in routes[start])
+            foreach (var hop in routes[start])
             {
+                var currVisited = visited ?? new HashSet<string> { start };
 
-                var currVisited  =  visited ?? new HashSet<string> {start};
-
-                if (item == destination)
+                if (hop == end)
                 {
-                    found.Add(new LinkedList<string>(new[] {item}));
+                    foundRoutes.Add(new LinkedList<string>(new[] { hop }));
                 }
                 else
                 {
-                    if (currVisited.Contains(item)) continue;
+                    if (currVisited.Contains(hop))
+                        continue;
 
-                    currVisited.Add(item);
+                    currVisited.Add(hop);
 
-                    var results = FindRoutes(item, destination,currVisited);
+                    var routes = FindRoutes(hop, end, currVisited);
 
-                    if (results.Count > 0)
-                        found.AddRange(results);
+                    if (routes.Count > 0)
+                        foundRoutes.AddRange(routes);
                 }
             }
 
-            foreach (var solution in found)
+            foreach (var solution in foundRoutes)
                 solution.AddFirst(start);
 
-            return found;
+            return foundRoutes;
         }
 
         /// <summary>
