@@ -1,16 +1,16 @@
-﻿using System;
-
-namespace Interview
+﻿namespace Interview
 {
+    using System;
+
     public static class Program
     {
 
-        static AirMap controller = new AirMap();
+        static readonly AirMap controller = new AirMap();
 
         static void Main(string[] args)
         {
 
-            var routes = new (string,string)[]
+            var routes = new (string, string)[]
             {
                 ("a", "b"),
                 ("b", "a"),
@@ -18,22 +18,17 @@ namespace Interview
                 ("c", "a"),
                 ("a", "d"),
                 ("d", "a"),
-                ("b","c"),
+                ("b", "c"),
                 ("c", "b"),
-                ("b","d"),
-                ("d","b")
+                ("b", "d"),
+                ("d", "b")
             };
 
-
-
-            foreach(var (from,to)  in routes)
-                controller.AddRoute(from,to);
+            foreach (var (from, to) in routes)
+                controller.AddRoute(from, to);
 
             ProcessCommands();
 
-            //controller.PrintDirectDestinations();
-
-            //controller.PrintRoutes("c","d");
         }
 
         public static void ProcessCommands()

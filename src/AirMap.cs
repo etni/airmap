@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace Interview
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class AirMap
     {
         private readonly Dictionary<string, List<string>> routes = new Dictionary<string, List<string>>();
@@ -34,7 +34,9 @@ namespace Interview
         public void PrintRoutes(string start, string end)
         {
             Console.WriteLine($"From {start} to {end}");
+
             var routes = FindRoutes(start, end);
+            
             if (routes.Count == 0)
                 Console.WriteLine("No Routes found");
 
@@ -90,10 +92,10 @@ namespace Interview
         /// </summary>
         public void PrintDirectDestinations()
         {
-            Console.WriteLine("\nDirect Destinations");
+            Console.WriteLine("\nAirport: [Direct Destinations]");
             foreach (var route in routes)
             {
-                Console.WriteLine($"{route.Key} [{string.Join(',', route.Value)}]");
+                Console.WriteLine($"{route.Key}: [{string.Join(',', route.Value)}]");
             }
         }
     }
