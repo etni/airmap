@@ -1,5 +1,7 @@
 # Flight Paths 
 
+![.NET Core](https://github.com/etni/interview-airmap/workflows/.NET%20Core/badge.svg)
+
 This is a simple command line app that I wrote to solve a question I received on an interview.   
 
 ### Problem Description
